@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PersonalInformation extends Model
+class WorkExperience extends Model
 {
     use HasFactory;
 
-    public function workExperience()
+    public function personalInformation()
     {
-        return $this->hasMany(WorkExperience::class);
+        return $this->belongsTo(PersonalInformation::class);
     }
 }

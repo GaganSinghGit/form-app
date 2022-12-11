@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\PersonalInformation;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,12 +14,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('personal_information', function (Blueprint $table) {
+        Schema::create('work_experiences', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(PersonalInformation::class);
+            $table->string('company_name');
+            $table->string('position');
+            $table->date('start_date');
+            $table->date('end_date')->nullable(true);
+            $table->boolean('currently_working');
             $table->timestamps();
-            $table->string('first_name')->nullable(true);
-            $table->string('last_name')->nullable(true);
-            $table->date('date_of_birth')->nullable(true);
         });
     }
 
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('personal_information');
+        Schema::dropIfExists('work_experiences');
     }
 };

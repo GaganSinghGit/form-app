@@ -13,9 +13,8 @@ export default defineConfig({
                 }
             }
         }),
-        laravel([
-            'resources/js/app.js',
-            'resources/css/app.css'
-        ]),
+        laravel({
+            input: ['resources/js/app.js'],
+        }),
     ],
 });
