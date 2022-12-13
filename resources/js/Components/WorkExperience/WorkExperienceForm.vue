@@ -3,8 +3,18 @@
         <form class="flex flex-col" @submit.prevent="createWorkExperience">
             <label>Company</label>
             <input type="text" v-model="workExperience.companyName" />
+            <span
+                class="text-xs text-red-600"
+                v-if="errors.hasOwnProperty('company_name')"
+                >{{ errors.company_name[0] }}</span
+            >
             <label class="mt-2">Position</label>
             <input type="text" v-model="workExperience.position" />
+            <span
+                class="text-xs text-red-600"
+                v-if="errors.hasOwnProperty('position')"
+                >{{ errors.position[0] }}</span
+            >
             <div class="flex mt-2">
                 <label>Currently Working</label>
                 <input
@@ -18,12 +28,22 @@
                 :date="workExperience.startDate"
                 @date-updated="(date) => saveStartDate(date)"
             ></DateInput>
+            <span
+                class="text-xs text-red-600"
+                v-if="errors.hasOwnProperty('start_date')"
+                >{{ errors.start_date[0] }}</span
+            >
             <div v-if="!workExperience.currentlyWorking">
                 <label class="mt-2">End Date</label>
                 <DateInput
                     :date="workExperience.endDate"
                     @date-updated="(date) => saveEndDate(date)"
                 ></DateInput>
+                <span
+                    class="text-xs text-red-600"
+                    v-if="errors.hasOwnProperty('end_date')"
+                    >{{ errors.end_date[0] }}</span
+                >
             </div>
             <div class="ml-auto">
                 <button
@@ -47,6 +67,7 @@ export default {
     emits: ["workExperienceCreated"],
     setup(props, { emit }) {
         const route = useRoute();
+        const errors = ref([]);
         const workExperience = ref({
             companyName: "",
             position: "",
@@ -61,25 +82,32 @@ export default {
             workExperience.value.endDate = date;
         };
         const createWorkExperience = async function () {
-            await axios.post(
-                `/api/records-api/work-experience/${route.params.id}/create`,
-                {
-                    company_name: workExperience.value.companyName,
-                    position: workExperience.value.position,
-                    currently_working: workExperience.value.currentlyWorking,
-                    start_date: workExperience.value.startDate,
-                    end_date: workExperience.value.currentlyWorking
-                        ? null
-                        : workExperience.value.endDate,
-                }
-            );
-            emit("workExperienceCreated");
+            try {
+                await axios.post(
+                    `/api/records-api/work-experience/${route.params.id}/create`,
+                    {
+                        company_name: workExperience.value.companyName,
+                        position: workExperience.value.position,
+                        currently_working:
+                            workExperience.value.currentlyWorking,
+                        start_date: workExperience.value.startDate,
+                        end_date: workExperience.value.currentlyWorking
+                            ? null
+                            : workExperience.value.endDate,
+                    }
+                );
+                errors.value = [];
+                emit("workExperienceCreated");
+            } catch (err) {
+                errors.value = err.response.data.errors;
+            }
         };
         return {
             workExperience,
             createWorkExperience,
             saveStartDate,
             saveEndDate,
+            errors,
         };
     },
 };

@@ -9,26 +9,30 @@
             <label>First name</label>
             <input type="text" v-model="personalInformation.firstName" />
         </div>
-        <span v-if="errors.hasOwnProperty('first_name')" class="text-red-600">{{
-            errors.first_name[0]
-        }}</span>
+        <span
+            v-if="errors.hasOwnProperty('first_name')"
+            class="text-xs text-red-600"
+            >{{ errors.first_name[0] }}</span
+        >
         <div class="flex flex-col mt-2">
             <label>Last name</label>
             <input type="text" v-model="personalInformation.lastName" />
         </div>
-        <span v-if="errors.hasOwnProperty('last_name')" class="text-red-600">{{
-            errors.last_name[0]
-        }}</span>
+        <span
+            v-if="errors.hasOwnProperty('last_name')"
+            class="text-xs text-red-600"
+            >{{ errors.last_name[0] }}</span
+        >
         <div class="flex flex-col mt-2">
             <label>Date of Birth</label>
             <DateInput
-                :date="personalInformation.dateOfBirth ?? ''"
+                :date="personalInformation.dateOfBirth"
                 @date-updated="(date) => saveDateOfBirth(date)"
             />
         </div>
         <span
             v-if="errors.hasOwnProperty('date_of_birth')"
-            class="text-red-600"
+            class="text-xs text-red-600"
             >{{ errors.date_of_birth[0] }}</span
         >
         <div class="flex mt-2">
@@ -100,9 +104,7 @@ export default {
                     params: { id: route.params.id },
                 });
             } catch (err) {
-                console.log(err);
                 errors.value = err.response.data.errors;
-                console.log(err.response.data.errors);
             }
         };
         getPersonalInformation();

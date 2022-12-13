@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('work_experiences', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(PersonalInformation::class)->onDelete('cascade');
+            $table->foreignId('personal_information_id')->constrained('personal_information')->onDelete('cascade');
             $table->string('company_name');
             $table->string('position');
             $table->date('start_date');

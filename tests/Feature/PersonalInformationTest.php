@@ -35,7 +35,6 @@ class PersonalInformationTest extends TestCase
      */
     public function canCreatePersonalInformation()
     {
-
         $response = $this->post(route('records.create-personal-information'), [
             'first_name' => 'abc',
             'last_name' => 'def',
@@ -53,7 +52,6 @@ class PersonalInformationTest extends TestCase
      */
     public function cannotCreatePersonalInformationWithDateOfBirthInFuture()
     {
-        
         $response = $this->post(route('records.create-personal-information'), [
             'first_name' => 'abc',
             'last_name' => 'def',
@@ -68,7 +66,6 @@ class PersonalInformationTest extends TestCase
      */
     public function canUpdatePersonalInformation()
     {
-
         $personalInformation = PersonalInformation::factory()->create();
 
         $response = $this->post(route('records.update-personal-information', [

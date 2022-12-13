@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('email_preferences', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(PersonalInformation::class)->onDelete('cascade');
+            $table->foreignId('personal_information_id')->constrained('personal_information')->onDelete('cascade');
             $table->boolean('marketing')->default(false);
             $table->boolean('special_deals')->default(false);
             $table->boolean('news_letter')->default(false);
