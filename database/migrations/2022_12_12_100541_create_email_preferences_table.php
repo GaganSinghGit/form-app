@@ -14,14 +14,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('work_experiences', function (Blueprint $table) {
+        Schema::create('email_preferences', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(PersonalInformation::class)->onDelete('cascade');
-            $table->string('company_name');
-            $table->string('position');
-            $table->date('start_date');
-            $table->date('end_date')->nullable(true);
-            $table->boolean('currently_working');
+            $table->boolean('marketing')->default(false);
+            $table->boolean('special_deals')->default(false);
+            $table->boolean('news_letter')->default(false);
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('work_experiences');
+        Schema::dropIfExists('email_preferences');
     }
 };

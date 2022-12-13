@@ -30,7 +30,7 @@ class PersonalInformationController extends Controller
     {
         $request->validate([
             'first_name' => 'required|string|max:30',
-            'first_name' => 'required|string|max:30',
+            'last_name' => 'required|string|max:30',
             'date_of_birth' => 'required|date_format:Y-m-d|before:today'
         ]);
         
@@ -38,6 +38,8 @@ class PersonalInformationController extends Controller
         $personalInformation->last_name = $request->get('last_name');
         $personalInformation->date_of_birth = Carbon::parse($request->get('date_of_birth'));
         $personalInformation->save();
+
+        $personalInformation->emailPreferences()->create();
     }
 
     public function delete(Request $request, PersonalInformation $personalInformation)

@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\EmailPreferencesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PersonalInformationController;
 use App\Http\Controllers\RecordController;
+use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\WorkExperienceController;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +36,8 @@ Route::get('/records-api/work-experience/{personalInformation}/get', [WorkExperi
 Route::post('/records-api/work-experience/{personalInformation}/create', [WorkExperienceController::class, 'createWorkExperience'])->name('records.work-experience-create');
 Route::delete('/records-api/work-experience/{workExperience}/delete', [WorkExperienceController::class, 'deleteWorkExperience'])->name('records.delete-work-experience');
 Route::post('/records-api/work-experience/{workExperience}/update', [WorkExperienceController::class, 'updateWorkExperience'])->name('records.update-work-experience');
+
+Route::get('/records-api/email-preferences/{personalInformation}/get', [EmailPreferencesController::class, 'getEmailPreferences'])->name('records.get-email-preferences');
+Route::post('/records-api/email-preferences/{personalInformation}/update', [EmailPreferencesController::class, 'updateEmailPreferences'])->name('records.update-email-preferences');
+Route::get('/records-api/summary/{personalInformation}', [SummaryController::class, 'getSummary'])->name('records.get-summary');
 

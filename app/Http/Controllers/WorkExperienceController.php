@@ -20,7 +20,7 @@ class WorkExperienceController extends Controller
             'company_name' => 'required|max:100',
             'position' => 'required|max:100',
             'start_date' => 'required|date_format:Y-m-d',
-            'end_date' => 'nullable|date_format:Y-m-d',
+            'end_date' => 'nullable|date|date_format:Y-m-d',
             'currently_working' => 'required|bool',
         ]);
 

@@ -1,9 +1,26 @@
 <template>
     <div class="flex">
-        <input class="w-12" type="number" placeholder="DD" min="1" max="31" @change="handleChange" v-model="day" />
-        <input class="w-12 ml-4" type="number" placeholder="MM" min="1" max="12" @change="handleChange"
-            v-model="month" />
-        <input class="w-16 ml-4" type="number" placeholder="YYYY" min="1900" @change="handleChange" v-model="year" />
+        <input
+            class="w-12"
+            type="number"
+            placeholder="DD"
+            @change="handleChange"
+            v-model="day"
+        />
+        <input
+            class="w-12 ml-4"
+            type="number"
+            placeholder="MM"
+            @change="handleChange"
+            v-model="month"
+        />
+        <input
+            class="w-16 ml-4"
+            type="number"
+            placeholder="YYYY"
+            @change="handleChange"
+            v-model="year"
+        />
     </div>
 </template>
 <script>
@@ -17,10 +34,11 @@ export default {
     },
     emits: ["dateUpdated"],
     setup(props, { emit }) {
-        const day = ref(1);
-        const month = ref(1);
-        const year = ref(1900);
-        if (props.date != "") {
+        const day = ref(0);
+        const month = ref(0);
+        const year = ref(0);
+        if (props.date !== "") {
+            console.log("date");
             const date = new Date(props.date);
             day.value = date.getDate();
             month.value = date.getMonth() + 1;
@@ -52,5 +70,4 @@ export default {
 };
 </script>
 <style>
-
 </style>

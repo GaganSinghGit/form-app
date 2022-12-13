@@ -1,121 +1,88 @@
 <template>
     <div>
-        <div class="flex flex-col">
-            <label>Company name</label>
-            <input v-model="companyName" type="text" />
-        </div>
-        <div class="flex flex-col mt-2">
-            <label>Position</label>
-            <input v-model="position" type="text" />
-        </div>
-        <div class="flex mt-2">
-            <label>Currently Working</label>
-            <input class="ml-4" type="checkbox" @change="handleCurrentlyWorking" />
-        </div>
-        <div class="flex flex-col w-1/3 mt-2">
-            <label>Start Date</label>
-            <DateInput :date="startDate" @date-updated="(date) => updateStartDate(date)" />
-        </div>
-        <div v-if="!currentlyWorking" class="flex flex-col w-1/3 mt-2">
-            <label>End Date</label>
-            <DateInput :date="endDate" @date-updated="(date) => updateEndDate(date)" />
-        </div>
-        <div class="flex pt-2">
-            <button v-if="!isAdding" class="bg-gray-500 p-2 rounded-lg mr-2 ml-auto border border-green-600 text-white"
-                @click="deleteWorkExperience">
-                Delete
-            </button>
-            <button v-if="isAdding" class="bg-green-600 p-2 rounded-lg text-white ml-auto" @click="addWorkExperience">
-                Add
-            </button>
-            <button v-else class="bg-green-600 p-2 rounded-lg text-white" @click="updateWorkExperience">
-                Save
-            </button>
-        </div>
+        <form class="flex flex-col" @submit.prevent="createWorkExperience">
+            <label>Company</label>
+            <input type="text" v-model="workExperience.companyName" />
+            <label class="mt-2">Position</label>
+            <input type="text" v-model="workExperience.position" />
+            <div class="flex mt-2">
+                <label>Currently Working</label>
+                <input
+                    type="checkbox"
+                    class="ml-2"
+                    v-model="workExperience.currentlyWorking"
+                />
+            </div>
+            <label class="mt-2">Start Date</label>
+            <DateInput
+                :date="workExperience.startDate"
+                @date-updated="(date) => saveStartDate(date)"
+            ></DateInput>
+            <div v-if="!workExperience.currentlyWorking">
+                <label class="mt-2">End Date</label>
+                <DateInput
+                    :date="workExperience.endDate"
+                    @date-updated="(date) => saveEndDate(date)"
+                ></DateInput>
+            </div>
+            <div class="ml-auto">
+                <button
+                    class="bg-green-600 px-6 py-2 rounded-lg text-white"
+                    type="submit"
+                >
+                    Save
+                </button>
+            </div>
+        </form>
     </div>
 </template>
 <script>
-import axios from "axios";
 import { ref } from "vue";
 import DateInput from "../ReuseableComponents/DateInput.vue";
+import { useRoute } from "vue-router";
 export default {
     components: {
         DateInput,
     },
-    props: {
-        personalInformationId: {
-            type: Number,
-            required: true,
-        },
-        workExperience: {
-            type: Object,
-            default: null,
-        },
-        isAdding: {
-            type: Boolean,
-            default: false,
-        }
-    },
-    emits: ['addedWorkExperience', 'deleteWorkExperience'],
+    emits: ["workExperienceCreated"],
     setup(props, { emit }) {
-        const companyName = ref(props.isAdding ? "" : props.workExperience.company_name);
-        const position = ref(props.isAdding ? "" : props.workExperience.position);
-        const startDate = ref(props.isAdding ? "" : props.workExperience.start_date);
-        const endDate = ref(props.isAdding ? "" : props.workExperience.end_date);
-        const currentlyWorking = ref(false);
-        const addWorkExperience = async function () {
+        const route = useRoute();
+        const workExperience = ref({
+            companyName: "",
+            position: "",
+            currentlyWorking: false,
+            startDate: "",
+            endDate: "",
+        });
+        const saveStartDate = function (date) {
+            workExperience.value.startDate = date;
+        };
+        const saveEndDate = function (date) {
+            workExperience.value.endDate = date;
+        };
+        const createWorkExperience = async function () {
             await axios.post(
-                `/api/records-api/work-experience/${props.personalInformationId}/create`,
+                `/api/records-api/work-experience/${route.params.id}/create`,
                 {
-                    company_name: companyName.value,
-                    position: position.value,
-                    start_date: startDate.value,
-                    end_date: currentlyWorking.value ? null : endDate.value,
-                    currently_working: currentlyWorking.value,
+                    company_name: workExperience.value.companyName,
+                    position: workExperience.value.position,
+                    currently_working: workExperience.value.currentlyWorking,
+                    start_date: workExperience.value.startDate,
+                    end_date: workExperience.value.currentlyWorking
+                        ? null
+                        : workExperience.value.endDate,
                 }
             );
-            emit('addedWorkExperience');
-        };
-        const updateWorkExperience = async function () {
-            await axios.post(
-                `/api/records-api/work-experience/${props.workExperience.id}/update`,
-                {
-                    company_name: companyName.value,
-                    position: position.value,
-                    start_date: startDate.value,
-                    end_date: currentlyWorking.value ? null : endDate.value,
-                    currently_working: currentlyWorking.value,
-                }
-            );
-        };
-        const deleteWorkExperience = async function () {
-            emit('deleteWorkExperience', props.workExperience.id);
-        };
-        const updateStartDate = function (date) {
-            startDate.value = date;
-        };
-        const updateEndDate = function (date) {
-            endDate.value = date;
-        };
-        const handleCurrentlyWorking = function (e) {
-            currentlyWorking.value = e.target.checked;
+            emit("workExperienceCreated");
         };
         return {
-            addWorkExperience,
-            companyName,
-            position,
-            startDate,
-            endDate,
-            updateStartDate,
-            updateEndDate,
-            handleCurrentlyWorking,
-            currentlyWorking,
-            deleteWorkExperience,
-            updateWorkExperience,
+            workExperience,
+            createWorkExperience,
+            saveStartDate,
+            saveEndDate,
         };
     },
 };
 </script>
 <style>
-
 </style>

@@ -13,4 +13,9 @@ class PersonalInformation extends Model
     {
         return $this->hasMany(WorkExperience::class);
     }
+
+    public function emailPreferences()
+    {
+        return $this->hasOne(EmailPreferences::class);
+    }
 }

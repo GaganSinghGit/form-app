@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import test from "../Components/test.vue";
-import PersonalInformationForm from "../Components/PersonalInformationForm.vue";
+import PersonalInformationForm from "../Components/PersonalInformation/PersonalInformationForm.vue";
 import WorkExperienceIndex from "../Components/WorkExperience/WorkExperienceIndex.vue";
-import Records from "../Components/Records.vue";
+import RecordsIndex from "../Components/Records/RecordsIndex.vue";
+import SummaryIndex from "../Components/Summary/SummaryIndex.vue";
+import EmailPreferences from "../Components/EmailPreferences/EmailPreferences.vue";
 const routes = [
     {
         path: "/test",
@@ -12,7 +14,7 @@ const routes = [
     {
         path: "/records",
         name: "Records",
-        component: Records,
+        component: RecordsIndex,
     },
     {
         path: "/personal-information/:id",
@@ -23,6 +25,16 @@ const routes = [
         path: "/work-experience/:id",
         name: "WorkExperience",
         component: WorkExperienceIndex,
+    },
+    {
+        path: "/summary/:id",
+        name: "Summary",
+        component: SummaryIndex,
+    },
+    {
+        path: "/email-preferences/:id",
+        name: "EmailPreferences",
+        component: EmailPreferences,
     },
 ];
 

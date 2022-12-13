@@ -15,14 +15,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="border-b" v-for="record in records">
+                <tr class="border-b" v-for="record in records" :key="record.id">
                     <td class="py-2">{{ record.id }}</td>
                     <td>{{ record.first_name }}</td>
                     <td>TODO</td>
                     <td>
                         <div>
-                            <button class="mr-2 text-green-600">Edit</button>
-                            <button class="text-green-600" @click="deleteRecord(record.id)">
+                            <button
+                                class="mr-2 text-green-600"
+                                @click="editRecord(record.id)"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                class="text-green-600"
+                                @click="deleteRecord(record.id)"
+                            >
                                 Delete
                             </button>
                         </div>
@@ -64,11 +72,20 @@ export default {
                 },
             });
         };
+        const editRecord = function (id) {
+            router.push({
+                name: "PersonalInformation",
+                params: {
+                    id: id,
+                },
+            });
+        };
         getRecords();
         return {
             records,
             deleteRecord,
             createNewRecord,
+            editRecord,
         };
     },
 };
