@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import test from "../Components/test.vue";
 import PersonalInformationForm from "../Components/PersonalInformation/PersonalInformationForm.vue";
 import WorkExperienceIndex from "../Components/WorkExperience/WorkExperienceIndex.vue";
 import RecordsIndex from "../Components/Records/RecordsIndex.vue";
@@ -8,9 +7,8 @@ import EmailPreferences from "../Components/EmailPreferences/EmailPreferences.vu
 import FeedbackIndex from "../Components/Feedback/FeedbackIndex.vue";
 const routes = [
     {
-        path: "/test",
-        name: "test",
-        component: test,
+        path: "/",
+        redirect: "/records",
     },
     {
         path: "/records",
@@ -47,6 +45,7 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
+    linkActiveClass: "active",
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
             return savedPosition;
