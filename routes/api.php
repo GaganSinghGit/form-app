@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmailPreferencesController;
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PersonalInformationController;
@@ -40,4 +41,8 @@ Route::post('/records-api/work-experience/{workExperience}/update', [WorkExperie
 Route::get('/records-api/email-preferences/{personalInformation}/get', [EmailPreferencesController::class, 'getEmailPreferences'])->name('records.get-email-preferences');
 Route::post('/records-api/email-preferences/{personalInformation}/update', [EmailPreferencesController::class, 'updateEmailPreferences'])->name('records.update-email-preferences');
 Route::get('/records-api/summary/{personalInformation}', [SummaryController::class, 'getSummary'])->name('records.get-summary');
+
+Route::get('/records-api/feedback/{personalInformation}/get', [FeedbackController::class, 'getFeedback'])->name('records.get-feedback');
+Route::post('/records-api/feedback/{personalInformation}/create', [FeedbackController::class, 'createFeedback'])->name('records.create-feedback');
+
 

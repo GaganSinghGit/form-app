@@ -5,6 +5,7 @@ import WorkExperienceIndex from "../Components/WorkExperience/WorkExperienceInde
 import RecordsIndex from "../Components/Records/RecordsIndex.vue";
 import SummaryIndex from "../Components/Summary/SummaryIndex.vue";
 import EmailPreferences from "../Components/EmailPreferences/EmailPreferences.vue";
+import FeedbackIndex from "../Components/Feedback/FeedbackIndex.vue";
 const routes = [
     {
         path: "/test",
@@ -35,6 +36,11 @@ const routes = [
         path: "/email-preferences/:id",
         name: "EmailPreferences",
         component: EmailPreferences,
+    },
+    {
+        path: "/feedback/:id",
+        name: "Feedback",
+        component: FeedbackIndex,
     },
 ];
 

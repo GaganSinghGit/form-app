@@ -26,7 +26,7 @@
         <div class="flex flex-col mt-2">
             <label>Date of Birth</label>
             <DateInput
-                :date="personalInformation.dateOfBirth"
+                :date="personalInformation.dateOfBirth ?? ''"
                 @date-updated="(date) => saveDateOfBirth(date)"
             />
         </div>
@@ -86,7 +86,6 @@ export default {
                     router.push({ name: "Records" });
                 }
                 errors.value = err.response.data.errors;
-                console.log(err.response.data.errors);
             }
         };
         const submitForm = async function () {

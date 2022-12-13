@@ -63,7 +63,7 @@ export default {
                 }
             );
             router.push({
-                name: "Summary",
+                name: "Feedback",
                 params: {
                     id: route.params.id,
                 },

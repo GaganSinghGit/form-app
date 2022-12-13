@@ -23,6 +23,13 @@
         >
         <router-link
             :to="{
+                name: 'Feedback',
+                params: { id: personalInformationId },
+            }"
+            >Step 4</router-link
+        >
+        <router-link
+            :to="{
                 name: 'Summary',
                 params: { id: personalInformationId },
             }"
