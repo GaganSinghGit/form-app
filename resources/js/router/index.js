@@ -3,12 +3,14 @@ import PersonalInformationForm from "../Components/PersonalInformation/PersonalI
 import WorkExperienceIndex from "../Components/WorkExperience/WorkExperienceIndex.vue";
 import RecordsIndex from "../Components/Records/RecordsIndex.vue";
 import SummaryIndex from "../Components/Summary/SummaryIndex.vue";
-import EmailPreferences from "../Components/EmailPreferences/EmailPreferences.vue";
+import EmailPreferencesIndex from "../Components/EmailPreferences/EmailPreferencesIndex.vue";
 import FeedbackIndex from "../Components/Feedback/FeedbackIndex.vue";
+import Home from "../Components/Home.vue";
 const routes = [
     {
         path: "/",
-        redirect: "/records",
+        name: "Home",
+        component: Home,
     },
     {
         path: "/records",
@@ -33,7 +35,7 @@ const routes = [
     {
         path: "/email-preferences/:id",
         name: "EmailPreferences",
-        component: EmailPreferences,
+        component: EmailPreferencesIndex,
     },
     {
         path: "/feedback/:id",

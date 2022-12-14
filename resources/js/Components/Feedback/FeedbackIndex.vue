@@ -41,10 +41,10 @@
     </div>
 </template>
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { useRoute, useRouter, onBeforeRouteLeave } from "vue-router";
 import StepperBar from "../ReuseableComponents/StepperBar.vue";
 import axios from "axios";
-import { useRoute, useRouter } from "vue-router";
 export default {
     components: {
         StepperBar,
@@ -55,6 +55,7 @@ export default {
         const rating = ref(null);
         const feedback = ref(null);
         const errors = ref([]);
+        const unsavedChanges = ref(false);
         const getFeedback = async function () {
             const { data: res } = await axios.get(
                 `/api/records-api/feedback/${route.params.id}/get`
@@ -72,9 +73,9 @@ export default {
                     }
                 );
                 errors.value = [];
+                unsavedChanges.value = false;
             } catch (err) {
                 errors.value = err.response.data.errors;
-                console.log(err);
             }
         };
         const goToSummary = async function () {
@@ -83,7 +84,31 @@ export default {
                 params: { id: route.params.id },
             });
         };
+        onBeforeRouteLeave((to, from, next) => {
+            if (unsavedChanges.value) {
+                const answer = window.confirm(
+                    "Do you really want to leave? you have unsaved changes!"
+                );
+                if (answer) {
+                    next();
+                } else {
+                    next(false);
+                }
+                return;
+            }
+            next();
+        });
         getFeedback();
+        watch(rating, (newValue, oldValue) => {
+            if (oldValue !== null) {
+                unsavedChanges.value = true;
+            }
+        });
+        watch(feedback, (newValue, oldValue) => {
+            if (oldValue !== null) {
+                unsavedChanges.value = true;
+            }
+        });
         return {
             rating,
             feedback,

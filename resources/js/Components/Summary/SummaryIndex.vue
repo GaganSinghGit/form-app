@@ -4,8 +4,12 @@
         :personalInformationId="parseInt($route.params.id)"
     ></StepperBar>
     <div v-if="!isLoading" class="max-w-md mx-auto my-10">
-        <span class="font-bold">Summary</span>
-        <div>
+        <span class="font-bold text-xl">Summary</span>
+        <br />
+        <router-link class="text-green-600" :to="{ name: 'Records' }"
+            >Back to Records</router-link
+        >
+        <div class="mt-10">
             <p class="font-bold pb-1">Personal Information</p>
             <p>Full Name: {{ summary.first_name }} {{ summary.last_name }}</p>
             <p>Date of Birth: {{ summary.date_of_birth }}</p>
