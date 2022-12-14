@@ -38,7 +38,6 @@ export default {
         const month = ref(0);
         const year = ref(0);
         if (props.date !== "") {
-            console.log("date");
             const date = new Date(props.date);
             day.value = date.getDate();
             month.value = date.getMonth() + 1;

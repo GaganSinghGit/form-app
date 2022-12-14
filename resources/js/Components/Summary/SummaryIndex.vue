@@ -9,12 +9,12 @@
         <router-link class="text-green-600" :to="{ name: 'Records' }"
             >Back to Records</router-link
         >
-        <div class="mt-10">
+        <div v-if="summary.first_name" class="mt-10">
             <p class="font-bold pb-1">Personal Information</p>
             <p>Full Name: {{ summary.first_name }} {{ summary.last_name }}</p>
             <p>Date of Birth: {{ summary.date_of_birth }}</p>
         </div>
-        <div class="pt-4">
+        <div v-if="summary.work_experience.length != 0" class="pt-4">
             <p class="font-bold pb-1">Work Experience</p>
             <div
                 v-for="workExperience in summary.work_experience"
@@ -92,7 +92,6 @@ export default {
                 `/api/records-api/summary/${route.params.id}`
             );
             summary.value = res;
-            console.log(res);
             isLoading.value = false;
         };
         getSummary();

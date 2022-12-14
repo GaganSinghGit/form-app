@@ -4,8 +4,8 @@
         :personalInformationId="parseInt($route.params.id)"
     ></StepperBar>
     <div class="max-w-md mx-auto my-10">
-        <span>Email Preferences</span>
-        <div>
+        <span class="text-xl">Email Preferences</span>
+        <div class="mt-2">
             <label>Want to receive marketing emails?</label>
             <select v-model="emailPreferences.marketing">
                 <option :value="false">No</option>

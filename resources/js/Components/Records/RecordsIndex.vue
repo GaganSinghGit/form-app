@@ -10,15 +10,13 @@
                 <tr class="border-b">
                     <th class="w-1/5 py-2">Record Id</th>
                     <th>Name</th>
-                    <th>Status</th>
                     <th class="w-1/4"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="border-b" v-for="record in records" :key="record.id">
                     <td class="py-2">{{ record.id }}</td>
-                    <td>{{ record.first_name }}</td>
-                    <td>TODO</td>
+                    <td>{{ record.first_name ?? "-" }}</td>
                     <td>
                         <div>
                             <button

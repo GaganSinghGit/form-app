@@ -4,7 +4,7 @@
         :personalInformationId="parseInt($route.params.id)"
     ></StepperBar>
     <div v-if="!isLoading" class="max-w-md mx-auto mt-10">
-        <span class="text-xl font-bold">Step 1: Personal Information</span>
+        <span class="text-xl">Personal Information</span>
         <div class="flex flex-col pt-4">
             <label>First name</label>
             <input type="text" v-model="personalInformation.firstName" />
@@ -78,10 +78,8 @@ export default {
                 personalInformation.value.lastName = res.last_name;
                 personalInformation.value.dateOfBirth = res.date_of_birth;
                 isLoading.value = false;
-                console.log(res);
                 errors.value = [];
             } catch (err) {
-                console.log(err);
                 if (err.response.status === 404) {
                     router.push({ name: "Records" });
                 }
