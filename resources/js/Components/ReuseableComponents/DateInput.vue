@@ -46,11 +46,11 @@ export default {
         const formatDate = function (day, month, year) {
             let dateOfBirth = "";
             dateOfBirth += year.toString() + "-";
-            if (month < 9) {
+            if (month < 10) {
                 dateOfBirth += "0";
             }
             dateOfBirth += month.toString() + "-";
-            if (day < 9) {
+            if (day < 10) {
                 dateOfBirth += "0";
             }
             dateOfBirth += day.toString();

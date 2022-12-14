@@ -15,8 +15,8 @@ class FeedbackController extends Controller
     public function createFeedback(Request $request, PersonalInformation $personalInformation)
     {
         $request->validate([
-            'rating' => 'required|integer|between:1,10',
-            'feedback_text' => 'required|string|max:200',
+            'rating' => 'nullable|integer|between:1,10',
+            'feedback_text' => 'nullable|string|max:200',
         ]);
 
         if($personalInformation->feedback()->exists()) {
