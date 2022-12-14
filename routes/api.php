@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/records-api/records', [RecordController::class, 'getRecords'])->name('records.get-all-records');
 
 Route::get('/records-api/personal-information/get-all', [PersonalInformationController::class, 'getAllRecords'])->name('records.get-all-personal-information-records');
-Route::get('/records-api/personal-information/create', [PersonalInformationController::class, 'createPersonalInformation'])->name('records.create-personal-information');
+Route::post('/records-api/personal-information/create', [PersonalInformationController::class, 'createPersonalInformation'])->name('records.create-personal-information');
 Route::get('/records-api/personal-information/{personalInformation}/get', [PersonalInformationController::class, 'getPersonalInformation'])->name('records.get-personal-information');
 Route::delete('/records-api/personal-information/{personalInformation}/delete', [PersonalInformationController::class, 'delete'])->name('records.delete');
 Route::post('/records-api/personal-information/{personalInformation}/update', [PersonalInformationController::class, 'updatePersonalInformation'])->name('records.update-personal-information');

@@ -59,7 +59,7 @@ export default {
             getRecords();
         };
         const createNewRecord = async function () {
-            const { data: res } = await axios.get(
+            const { data: res } = await axios.post(
                 "/api/records-api/personal-information/create"
             );
             router.push({
