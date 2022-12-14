@@ -96,7 +96,6 @@ export default {
                     `/api/records-api/work-experience/${route.params.id}/get`
                 );
                 workExperiences.value = res;
-                console.log(res);
             } catch (err) {
                 if (err.response.status === 404) {
                     router.push({ name: "Records" });

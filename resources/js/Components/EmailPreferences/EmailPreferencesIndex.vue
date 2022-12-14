@@ -70,21 +70,14 @@ export default {
             });
         };
         const getEmailPreferences = async function () {
-            try {
-                const { data: res } = await axios.get(
-                    `/api/records-api/email-preferences/${route.params.id}/get`
-                );
-                console.log(res);
-                emailPreferences.value.marketing = res.marketing ? true : false;
-                emailPreferences.value.specialDeals = res.special_deals
-                    ? true
-                    : false;
-                emailPreferences.value.newsLetter = res.news_letter
-                    ? true
-                    : false;
-            } catch (err) {
-                console.log(err);
-            }
+            const { data: res } = await axios.get(
+                `/api/records-api/email-preferences/${route.params.id}/get`
+            );
+            emailPreferences.value.marketing = res.marketing ? true : false;
+            emailPreferences.value.specialDeals = res.special_deals
+                ? true
+                : false;
+            emailPreferences.value.newsLetter = res.news_letter ? true : false;
         };
         getEmailPreferences();
         return {

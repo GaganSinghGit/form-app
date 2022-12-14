@@ -52,7 +52,6 @@ export default {
             const { data: res } = await axios.get(
                 "/api/records-api/personal-information/get-all"
             );
-            console.log(res);
             records.value = res;
         };
         const deleteRecord = async function (id) {
